@@ -1,6 +1,5 @@
 
-
-OPENSSL_SRC := https://github.com/openssl/openssl/archive/refs/tags/OpenSSL_1_1_1u.tar.gz 
+OPENSSL_SRC := https://github.com/openssl/openssl/archive/refs/tags/OpenSSL_1_1_1w.tar.gz
 
 # no $$ here because we're not calling the AUTOTOOLS_BUILD function
 

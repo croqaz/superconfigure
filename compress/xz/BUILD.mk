@@ -1,5 +1,5 @@
 
-XZ_SRC := https://sourceforge.net/projects/lzmautils/files/xz-5.4.3.tar.gz/download 
+XZ_SRC := https://sourceforge.net/projects/lzmautils/files/xz-5.4.6.tar.gz/download
 
 $(eval $(call DOWNLOAD_SOURCE,compress/xz,$(XZ_SRC)))
 
