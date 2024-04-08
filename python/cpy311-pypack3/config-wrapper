@@ -7,7 +7,7 @@ cd pypack3
 
 # https://docs.python.org/3.11/using/configure.html
 ./configure --disable-shared\
-    --with-system-expat --without-system-ffi\
+    --without-system-expat --without-system-ffi\
     --with-openssl="$COSMOS"/ssl\
     --with-tzpath=/zip/usr/share/zoneinfo\
     --prefix="$COSMOS"\
