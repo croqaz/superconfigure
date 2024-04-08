@@ -4,6 +4,7 @@ include compress/gzip/BUILD.mk
 include compress/lz4/BUILD.mk
 include compress/pigz/BUILD.mk
 include compress/tar/BUILD.mk
+include compress/xz/BUILD.mk
 
 compress: \
 	o/cosmo-repo/compress/built.fat\
@@ -11,7 +12,8 @@ compress: \
 	o/compress/gzip/built.fat\
 	o/compress/lz4/built.fat\
 	o/compress/pigz/built.fat\
-	o/compress/tar/built.fat
+	o/compress/tar/built.fat\
+	o/compress/xz/built.fat
 
 # tar build doesn't work for some reason
 
