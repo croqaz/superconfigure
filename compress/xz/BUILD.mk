@@ -1,7 +1,8 @@
 
+# Homepage: https://tukaani.org/xz/
 o/compress/xz/downloaded: \
     DL_COMMAND = rm -rf ./xz && \
-        git clone --quiet --depth=1 --branch v5.6.1 https://git.tukaani.org/xz.git
+        git clone --quiet --depth=1 --branch v5.4.6 https://git.tukaani.org/xz.git
 
 o/compress/xz/patched: PATCH_COMMAND = $(DUMMYLINK0)
 
