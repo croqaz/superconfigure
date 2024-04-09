@@ -21,24 +21,19 @@ cd /zip
 
 mkdir -p pypack3
 cd pypack3
-unzip -qo "$BASELOC"/o/python/cpy311-pypack3/build/x86_64/pypack3/python || true
+unzip -qo "$BASELOC"/o/python/cpy311-pypack3/build/x86_64/pypack3/python.com || true
 
-mkdir -p build Lib
-
+mkdir -p build
 cp -r "$BASELOC"/o/python/cpy311-pypack3/build/aarch64/pypack3/dummy/lib* ./build || true
 cp -r "$BASELOC"/o/python/cpy311-pypack3/build/x86_64/pypack3/dummy/lib* ./build || true
 ls -al build/
 
-echo 'fat: Files to ZIP'
-ls -al
-echo 'fat: Final zipping'
-
-zip -qr "$RESULTS"/bin/pypack3.com build/
 zip -qr "$RESULTS"/bin/pypack3.com Lib/
+zip -qr "$RESULTS"/bin/pypack3.com build/
 
 cd /zip
 zip -qr "$RESULTS"/bin/pypack3.com usr/share/terminfo usr/share/ssl
 cd "$BASELOC"
 
 # Final cleanup
-#rm -rf /zip/pypack3
+rm -rf /zip/pypack3
