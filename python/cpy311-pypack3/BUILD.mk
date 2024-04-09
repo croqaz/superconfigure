@@ -2,7 +2,7 @@
 PYPACK3_DEPS := lib/ncurses lib/readline lib/gdbm \
                 lib/openssl lib/libexpat lib/libuuid \
                 lib/certs cosmo-repo/compress cosmo-repo/base \
-                compress/brotli compress/lz4 compress/xz
+                compress/brotli compress/lz4
 
 $(eval $(call SPECIFY_DEPS,python/cpy311-pypack3,$(PYPACK3_DEPS)))
 
