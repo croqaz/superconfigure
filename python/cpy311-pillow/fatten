@@ -1,0 +1,39 @@
+#!/bin/sh
+set -e
+
+apelinkpls () {
+    OUTPUT="$1"
+    OLDNAME_X86_64="$(basename -- "$2")"
+    OLDNAME_AARCH64="$(basename -- "$3")"
+    TARG_FOLD="$(dirname "$OUTPUT")"
+    "$APELINK" -l "$COSMO/o/x86_64/ape/ape.elf" \
+        -l "$COSMO/o/aarch64/ape/ape.elf" \
+        -M "$COSMO/ape/ape-m1.c" \
+        -o "$OUTPUT" \
+        "$2" \
+        "$3"
+    cp "$2" "$TARG_FOLD/$OLDNAME_X86_64.x86_64"
+    cp "$3" "$TARG_FOLD/$OLDNAME_AARCH64.aarch64"
+}
+
+apelinkpls "$RESULTS"/bin/pillow.com "$COSMOS_X86_64"/bin/pillow "$COSMOS_AARCH64"/bin/pillow
+cd /zip
+
+mkdir -p pillow
+cd pillow
+unzip -qo "$BASELOC"/o/python/cpy311-pillow/build/x86_64/pillow/python.com || true
+
+mkdir -p build
+cp -r "$BASELOC"/o/python/cpy311-pillow/build/aarch64/pillow/dummy/lib* ./build || true
+cp -r "$BASELOC"/o/python/cpy311-pillow/build/x86_64/pillow/dummy/lib* ./build || true
+ls -al build/
+
+zip -qr "$RESULTS"/bin/pillow.com Lib/
+zip -qr "$RESULTS"/bin/pillow.com build/
+
+cd /zip
+zip -qr "$RESULTS"/bin/pillow.com usr/share/terminfo usr/share/ssl
+cd "$BASELOC"
+
+# Final cleanup
+rm -rf /zip/pillow
