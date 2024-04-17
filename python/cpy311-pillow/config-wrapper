@@ -8,7 +8,8 @@ cd pillow
 # https://docs.python.org/3.11/using/configure.html
 ./configure --disable-shared\
     --without-system-expat --without-system-ffi\
-    --prefix="$COSMOS" CFLAGS="-Os -I$COSMOS/include"
+    --with-pymalloc --with-tzpath=/zip/usr/share/zoneinfo\
+    --prefix="$COSMOS" CFLAGS="-Os -I$COSMOS/include -I$COSMOS/include/ncurses"
 
 # run make and/or make install
 make V=0 -s -j"$MAXPROC"

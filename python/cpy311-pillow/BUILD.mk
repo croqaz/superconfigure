@@ -1,12 +1,15 @@
 
-PILLOW_DEPS := lib/readline lib/gdbm \
+PILLOW_DEPS := lib/ncurses lib/readline lib/gdbm \
                lib/libexpat lib/freetype \
                lib/fribidi lib/libjpeg lib/libpng \
-               lib/libwebp lib/libtiff \
-               cosmo-repo/compress cosmo-repo/base
+               lib/giflib lib/libwebp lib/libtiff \
+               cosmo-repo/compress cosmo-repo/base \
+               compress/brotli compress/lz4 compress/xz
 
 $(eval $(call SPECIFY_DEPS,python/cpy311-pillow,$(PILLOW_DEPS)))
 
+# must be in sync with:
+# https://github.com/croqaz/cpython/blob/pillow/Modules/Setup
 o/python/cpy311-pillow/downloaded: \
     DL_COMMAND = rm -rf ./pillow && \
         git clone --quiet --depth=1 --branch=pillow https://github.com/croqaz/cpython pillow
