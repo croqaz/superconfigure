@@ -19,11 +19,11 @@ apelinkpls () {
 apelinkpls "$RESULTS"/bin/pillow.com "$COSMOS_X86_64"/bin/pillow "$COSMOS_AARCH64"/bin/pillow
 cd /zip
 
-mkdir -p pillow
+mkdir -p /zip/pillow/
 cd pillow
 unzip -qo "$BASELOC"/o/python/cpy311-pillow/build/x86_64/pillow/python.com || true
 
-mkdir -p build
+mkdir -p /zip/build/
 cp -r "$BASELOC"/o/python/cpy311-pillow/build/aarch64/pillow/dummy/lib* ./build || true
 cp -r "$BASELOC"/o/python/cpy311-pillow/build/x86_64/pillow/dummy/lib* ./build || true
 ls -al build/
@@ -31,8 +31,12 @@ ls -al build/
 zip -qr "$RESULTS"/bin/pillow.com Lib/
 zip -qr "$RESULTS"/bin/pillow.com build/
 
+mkdir -p /zip/usr/share/ssl/
+wget https://curl.se/ca/cacert.pem
+mv cacert.pem /zip/usr/share/ssl/cert.pem
+
 cd /zip
-zip -qr "$RESULTS"/bin/pillow.com usr/share/terminfo usr/share/ssl
+zip -9 -r "$RESULTS"/bin/pillow.com /usr/share/terminfo usr/share/ssl
 cd "$BASELOC"
 
 # Final cleanup

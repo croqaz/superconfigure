@@ -12,7 +12,7 @@ $(eval $(call SPECIFY_DEPS,python/cpy311-pillow,$(PILLOW_DEPS)))
 # https://github.com/croqaz/cpython/blob/pillow/Modules/Setup
 o/python/cpy311-pillow/downloaded: \
     DL_COMMAND = rm -rf ./pillow && \
-        git clone --quiet --depth=1 --branch=pillow https://github.com/croqaz/cpython pillow
+        git clone --depth=1 --branch=pillow https://github.com/croqaz/cpython pillow
 
 o/python/cpy311-pillow/patched: PATCH_COMMAND = $(DUMMYLINK0)
 
