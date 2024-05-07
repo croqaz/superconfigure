@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+
+rm -rf ./pybare
+cp -r "$BASELOC"/o/python/cpy312-bare/pybare ./
+cd pybare
+
+# https://docs.python.org/3.12/using/configure.html
+./configure --enable-optimizations --disable-shared --with-static-libpython \
+    --without-pymalloc --disable-test-modules --without-doc-strings \
+    --with-ensurepip=no --prefix="$COSMOS" \
+    LDFLAGS="-static -static-libgcc -L$COSMOS/lib" \
+    CFLAGS="-static -I$COSMOS/include -I$COSMOS/include/ncurses" \
+    MODULE_BUILDTYPE=static
+
+# run make and/or make install
+make -j"$MAXPROC"
+mkdir -p dummy
+cp -r build/lib* ./dummy
+cp ./python "$COSMOS"/bin/pybare

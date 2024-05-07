@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+
+rm -rf ./xhtml
+cp -r "$BASELOC"/o/python/cpy311-xhtml/xhtml ./
+cd xhtml
+
+# https://docs.python.org/3.11/using/configure.html
+./configure --disable-shared --with-ensurepip=no\
+    --without-system-expat --without-system-ffi\
+    --enable-optimizations --with-tzpath=/zip/usr/share/zoneinfo\
+    --prefix="$COSMOS" CFLAGS="-O2 -I$COSMOS/include -I$COSMOS/include/ncurses"
+
+# run make and/or make install
+make V=0 -s -j"$MAXPROC"
+mkdir -p dummy
+cp -r build/lib* ./dummy
+cp ./python "$COSMOS"/bin/xhtml

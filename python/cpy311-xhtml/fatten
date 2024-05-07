@@ -1,0 +1,43 @@
+#!/bin/sh
+set -e
+
+apelinkpls () {
+    OUTPUT="$1"
+    OLDNAME_X86_64="$(basename -- "$2")"
+    OLDNAME_AARCH64="$(basename -- "$3")"
+    TARG_FOLD="$(dirname "$OUTPUT")"
+    "$APELINK" -l "$COSMO/o/x86_64/ape/ape.elf" \
+        -l "$COSMO/o/aarch64/ape/ape.elf" \
+        -M "$COSMO/ape/ape-m1.c" \
+        -o "$OUTPUT" \
+        "$2" \
+        "$3"
+    cp "$2" "$TARG_FOLD/$OLDNAME_X86_64.x86_64"
+    cp "$3" "$TARG_FOLD/$OLDNAME_AARCH64.aarch64"
+}
+
+apelinkpls "$RESULTS"/bin/xhtml.com "$COSMOS_X86_64"/bin/xhtml "$COSMOS_AARCH64"/bin/xhtml
+cd /zip
+
+mkdir -p /zip/xhtml/
+cd xhtml
+unzip -qo "$BASELOC"/o/python/cpy311-xhtml/build/x86_64/xhtml/python.com || true
+
+mkdir -p /zip/build/
+cp -r "$BASELOC"/o/python/cpy311-xhtml/build/aarch64/xhtml/dummy/lib* ./build || true
+cp -r "$BASELOC"/o/python/cpy311-xhtml/build/x86_64/xhtml/dummy/lib* ./build || true
+ls -al build/
+
+zip -qr "$RESULTS"/bin/xhtml.com Lib/
+zip -qr "$RESULTS"/bin/xhtml.com build/
+
+mkdir -p /zip/usr/share/ssl/
+wget https://curl.se/ca/cacert.pem
+mv cacert.pem /zip/usr/share/ssl/cert.pem
+
+cd /zip
+zip -9 -r "$RESULTS"/bin/xhtml.com /usr/share/terminfo usr/share/ssl
+cd "$BASELOC"
+
+# Final cleanup
+rm -rf /zip/xhtml
